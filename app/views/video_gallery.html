@@ -1,0 +1,65 @@
+https://www.youtube.com/watch?v=4JOAqRS_lms </br>
+https://youtu.be/vJ3a_AuEW18 </br>
+ZBCOMG2F2Zk  </br>
+https://www.youtube.com/watch?v=enpDdpCS37A </br>
+https://vimeo.com/138882294 </br>
+https://vimeo.com/143831946</br>
+<!-- Add and remove movie -->
+<div class="container top-margin">
+  <div layout="row" layout-sm="column">
+    <form name="mform" style="width:400px">
+      <md-input-container>
+        <label>Movie id:</label>
+        <input ng-model="main.newMovie">
+      </md-input-container>
+      <md-button md-no-ink class="md-primary" ng-click="main.AddMovie()">Add new movie</md-button>
+    </form>
+  </div>
+  <md-button class="btn btn-default pull-left" ng-click="main.removeAll()">Remove All</md-button>
+</div>
+<!-- /Add and remove movie -->
+<!-- orderByfilter -->
+ <select ng-model="orderList" class="pull-right">
+   <option selected="selected" value="view">view</option>
+   <option value="like">like</option>
+   <option value="favorite">favorite</option>
+ </select>
+<!-- /orderByfilter -->
+<!-- movie List -->
+<div ng-repeat="info in main.movieList | orderBy: orderList track by $index ">
+  <iframe ng-src="{{main.trustSrc(info.url)}}" width="500" height="213" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  <div><button ng-click="main.removeVideo (info.movieID, $index)" class="btn btn-default pull-right">Remove</button></div>
+  </br>
+<div ng-show='info.view > 0'>
+
+  Likes: {{ info.like }},
+  View: {{info.view}},
+  Favorite: {{info.favorite}},
+  Dislike: {{info.dislike}},
+  Comment: {{info.comment}}
+</div>
+</div>
+<!-- /movie List -->
+<!--
+Tabela wygląda tak:
+
+[
+{comment: "589",
+dislike: "327",
+favorite: "0",
+favourite: false,
+like: "18595",
+movieID: "4JOAqRS_lms",
+url: "https://www.youtube.com/embed/4JOAqRS_lms?rel=0&amp;showinfo=0",
+view: "2328366"},
+
+{comment: "0",
+dislike: "0",
+favorite: "0",
+favourite: false,
+like: "0",
+movieID: "enpDdpCS37A",
+url: "https://www.youtube.com/embed/enpDdpCS37A?rel=0&amp;showinfo=0",
+view: "242"}
+]
+-->
