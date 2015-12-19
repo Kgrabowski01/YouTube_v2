@@ -18,7 +18,7 @@
       localStorageArray.push(tempArray);
       localStorage.setItem(videoStorage, JSON.stringify(localStorageArray));
       localStorageArray = [];
-    };
+    }
 
     if (localStorage.videoStorage) {
       var tempJson = localStorage.videoStorage;
@@ -31,5 +31,5 @@
       filesArray: filesArray
     };
 
-  };
+  }
 })();

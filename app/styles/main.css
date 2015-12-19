@@ -9,6 +9,84 @@ body {
   padding: 0;
 }
 
+
+
+.floatTop {
+  float:right
+}
+
+.movieSpace {
+  margin: 20px;
+  padding: 10px;
+}
+
+.boxShadow {
+  box-shadow: 10px 10px 5px #888888;
+  background-color: #f5f5f0;
+  border-radius: 5px;
+}
+
+.iframeShadow {
+  box-shadow: 5px 5px 2px #888888;
+  background-color: #f5f5f0;
+  border-radius: 5px;
+}
+.addFav {
+  background:url(/images/icons/fav.PNG) no-repeat;
+  cursor:pointer;
+  width: 48px;
+  height: 48px;
+  border: none;
+}
+.faved {
+  background:url(/images/icons/faved.PNG) no-repeat;
+  cursor:pointer;
+  width: 48px;
+  height: 48px;
+  border: none;
+}
+
+
+
+
+.deleteIcon {
+  background:url(/images/icons/delete.PNG) no-repeat;
+  cursor:pointer;
+  width: 48px;
+  height: 48px;
+  border: none;
+}
+
+.removeFav {
+  background:url(/images/icons/unfav.PNG) no-repeat;
+  cursor:pointer;
+  width: 48px;
+  height: 48px;
+  border: none;
+}
+button:hover { font-weight: bold }
+.row {
+  position:relative;
+  margin:auto;
+  display:block;
+  background:red;
+}
+
+.bot {
+  position: absolute;
+  bottom: -20px;
+}
+div.grid{
+  list-style: none;
+  width: 260px;
+  margin: 10 auto;
+  text-align: left;
+  padding: 3px;
+  float:left;
+}
+
+
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
