@@ -5,7 +5,7 @@ angular.module('youTubeV2App')
 
   var vm = this;
   vm.movieList = localStorageService.filesArray || [];
-  vm.layout = 'grid';
+  vm.layout = 'list';
 
   vm.processMovie = processMovie;
   vm.favoriteProc = favoriteProc;
@@ -25,6 +25,7 @@ angular.module('youTubeV2App')
   function changeView (style) {
     vm.layout = style;
   }
+
   function processMovie () {
     if (movieProcService.sourceVimeo(vm.newMovie)) {vimeoProc();}
     ytProc();

@@ -16,7 +16,6 @@ angular.module('youTubeV2App')
   function setPageSize (size) {
     vm.pageSize = size;
     vm.currentPage = 0;
-   }
-
+  }
 
 });

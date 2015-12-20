@@ -64,18 +64,23 @@ body {
   height: 48px;
   border: none;
 }
-button:hover { font-weight: bold }
+
 .row {
   position:relative;
+  padding-bottom: 150px;
   margin:auto;
   display:block;
-  background:red;
 }
 
-.bot {
+.toBottom {
   position: absolute;
-  bottom: -20px;
+  bottom: 0;
 }
+
+button:hover {
+  font-weight: bold
+ }
+
 div.grid{
   list-style: none;
   width: 260px;

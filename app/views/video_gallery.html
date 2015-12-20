@@ -8,35 +8,35 @@ https://vimeo.com/143831946</br></br>
 <!-- Add and remove movie -->
 <div ng-controller="paginationCtrl as pagi" class="row">
 
-<div class="container top-margin">
-  <div layout="row" layout-sm="column">
-    <form name="mform" style="width:400px">
-      <md-input-container>
-        <label>Movie id:</label>
-        <input ng-model="main.newMovie">
-      </md-input-container>
-      <md-button md-no-ink class="md-primary" ng-click="main.processMovie()">Add new movie</md-button>
-    </form>
-  </div>
+  <div class="container top-margin">
+    <div layout="row" layout-sm="column">
+      <form name="mform" style="width:400px">
+        <md-input-container>
+          <label>Movie id:</label>
+          <input ng-model="main.newMovie">
+        </md-input-container>
+        <md-button md-no-ink class="md-primary" ng-click="main.processMovie()">Add new movie</md-button>
+      </form>
+    </div>
 
-  <!-- /Add and remove movie -->
-  <!-- orderBy and checkbox filter -->
-  <div class="pull-right">
-    <button class="btn btn-default btn-xs" ng-click="main.changeView('list')">list</button>
-    <button class="btn btn-default btn-xs" ng-click="main.changeView('grid')">grid</button>
-    <p >Filter by: <select ng-model="main.orderList" >
-      <option value="like">like</option>
-      <option value="view">view</option>
-      <option value="favorite">favorite</option>
-      <option value="dislike">dislike</option>
-      <option value="comment">comment</option>
-      <option value="-addTime">newest</option>
-      <option value="addTime">oldest</option>
-    </select>
-  </p>
-  Favorites only <input type="checkbox" ng-model="main.showFav" value="myFavorite" >
-</div>
-<!-- /orderBy and checkbox filter  -->
+    <!-- /Add and remove movie -->
+    <!-- orderBy and checkbox filter -->
+    <div class="pull-right">
+      <button class="btn btn-default btn-xs" ng-click="main.changeView('list')">list</button>
+      <button class="btn btn-default btn-xs" ng-click="main.changeView('grid')">grid</button>
+      <p>Filter by: <select ng-model="main.orderList" >
+        <option value="like">like</option>
+        <option value="view">view</option>
+        <option value="favorite">favorite</option>
+        <option value="dislike">dislike</option>
+        <option value="comment">comment</option>
+        <option value="-addTime">newest</option>
+        <option value="addTime">oldest</option>
+      </select>
+    </p>
+    Favorites only <input type="checkbox" ng-model="main.showFav" value="myFavorite" >
+  </div>
+  <!-- /orderBy and checkbox filter  -->
 </div></br></br>
 <!-- /End of container -->
 
@@ -48,18 +48,15 @@ https://vimeo.com/143831946</br></br>
     <button ng-click="main.favoriteProc (info.movieID, 'remove')" class="btn btn-default pull-right removeFav"></button></br>
     <button ng-click="main.removeVideo (info.movieID, $index)" class="btn btn-default pull-right deleteIcon"></button></br>
     <div class="pull-right faved" ng-show = "info.myFavorite" ></div></br>
+  </div></br>
+  <div ng-show = "info.view">
+    Likes: {{ info.like }},
+    View: {{info.view}},
+    Favorite: {{info.favorite}},
+    Dislike: {{info.dislike}},</br>
+    Comment: {{info.comment}},
+    Added: {{info.addTime}}
   </div>
-
-    </br>
-    <div ng-show = "info.view" >
-      Likes: {{ info.like }},
-      View: {{info.view}},
-      Favorite: {{info.favorite}},
-      Dislike: {{info.dislike}},</br>
-      Comment: {{info.comment}},
-      Added: {{info.addTime}}
-    </div>
-
 </div>
 <!-- /movie List, style List -->
 
@@ -71,37 +68,33 @@ https://vimeo.com/143831946</br></br>
     <button ng-click="main.favoriteProc (info.movieID, 'remove')" class="btn btn-default pull-right removeFav"></button></br>
     <button ng-click="main.removeVideo (info.movieID, $index)" class="btn btn-default pull-right deleteIcon"></button></br>
     <div class="pull-right faved" ng-show = "info.myFavorite" ></div></br>
+  </div></br>
+  <div ng-show = "info.view" >
+    Likes: {{ info.like }},
+    View: {{info.view}},</br>
+    Favorite: {{info.favorite}},
+    Dislike: {{info.dislike}},</br>
+    Comment: {{info.comment}},</br>
+    Added: {{info.addTime}}
   </div>
-
-    </br>
-    <div ng-show = "info.view" >
-      Likes: {{ info.like }},
-      View: {{info.view}},</br>
-      Favorite: {{info.favorite}},
-      Dislike: {{info.dislike}},</br>
-      Comment: {{info.comment}},</br>
-      Added: {{info.addTime}}
-    </div>
-
 </div>
 <!-- /movie List, style grid -->
-
 </br></br>
-<div class="bot">
-<button class="btn btn-default btn-s" ng-disabled="pagi.currentPage == 0" ng-click="pagi.currentPage = pagi.currentPage-1">Previous</button>
-{{pagi.currentPage+1}} / {{pagi.numberOfPages()}}
-<button class="btn btn-default btn-s" ng-disabled="pagi.currentPage >= pagi.movieListt.length/pagi.pageSize - 1" ng-click="pagi.currentPage = pagi.currentPage + 1">Next</button>
+
+<div class="toBottom">
+  <button class="btn btn-default btn-s" ng-disabled="pagi.currentPage == 0" ng-click="pagi.currentPage = pagi.currentPage-1">Previous</button>
+  {{pagi.currentPage+1}} / {{pagi.numberOfPages()}}
+  <button class="btn btn-default btn-s" ng-disabled="pagi.currentPage >= pagi.movieListt.length/pagi.pageSize - 1" ng-click="pagi.currentPage = pagi.currentPage + 1">Next</button>
 </br>
 </br>
 
 <p>Movies displayed:
-    <button class="btn btn-default btn-xs" ng-click="pagi.setPageSize(1)">1</button>
-    <button class="btn btn-default btn-xs" ng-click="pagi.setPageSize(5)">5</button>
-    <button class="btn btn-default btn-xs" ng-click="pagi.setPageSize(25)">25</button>
-    <button class="btn btn-default btn-xs" ng-click="pagi.setPageSize(50)">50</button>
+  <button class="btn btn-default btn-xs" ng-click="pagi.setPageSize(1)">1</button>
+  <button class="btn btn-default btn-xs" ng-click="pagi.setPageSize(5)">5</button>
+  <button class="btn btn-default btn-xs" ng-click="pagi.setPageSize(25)">25</button>
+  <button class="btn btn-default btn-xs" ng-click="pagi.setPageSize(50)">50</button>
 </p>
-
 <md-button class="btn btn-default " ng-click="main.removeAll()">Remove All</md-button>
-
 </div>
+
 </div>
