@@ -1,0 +1,17 @@
+<div class="row addMarginBottom">
+  <div class="col-md-offset-5 col-md-4 col-xs-offset-4 col-xs-8">
+    <button class="btn btn-default btn-sm glyphicon glyphicon-arrow-left" ng-disabled="pagi.currentPage == 0" ng-click="pagi.currentPage = pagi.currentPage-1"></button>
+    {{pagi.currentPage+1}} / {{pagi.numberOfPages()}}
+    <button class="btn btn-default btn-sm glyphicon glyphicon-arrow-right" ng-disabled="pagi.currentPage >= pagi.movieList/pagi.pageSize - 1" ng-click="pagi.currentPage = pagi.currentPage + 1"></button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-xs-12 paddingTopBottom">
+    <div>Display:
+      <button class="btn btn-default btn-xs" ng-click="pagi.setPageSize(1)">1</button>
+      <button class="btn btn-default btn-xs" ng-click="pagi.setPageSize(5)">5</button>
+      <button class="btn btn-default btn-xs" ng-click="pagi.setPageSize(25)">25</button>
+      <button class="btn btn-default btn-xs" ng-click="pagi.setPageSize(50)">50</button>
+    </div>
+  </div>
+</div>

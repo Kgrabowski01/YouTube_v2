@@ -4,7 +4,6 @@
   .directive('videoGallery', function () {
     return {
       restrict: 'E',
-      transclude: true,
       templateUrl: 'views/video_gallery.html',
       link: function() {
       }

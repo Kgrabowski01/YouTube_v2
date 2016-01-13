@@ -7,21 +7,53 @@
 
 body {
   padding: 0;
+  background-image: url("http://r-scale-05.dcs.redcdn.pl/scale/o2/tvn/web-content/m/p1/i/e94f63f579e05cb49c05c2d050ead9c0/cea9e7c2-76fd-11e4-9888-0025b511229e.jpg?type=1&srcmode=3&srcx=1%2F2&srcy=1%2F2&srcw=1260&srch=708.75&dstw=1260&dsth=708.75&quality=75");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+li.list-group-item:hover {
+  color:blue;
 }
 
-
-
-.floatTop {
-  float:right
-}
 
 .movieSpace {
-  margin: 20px;
   padding: 10px;
+  margin-bottom: 20px;
+}
+
+.fontH1 {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.headerFont {
+  color: #cc0000;
+  font-weight: bold;
+}
+
+.headerPadding {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  margin-bottom: 20px;
+}
+
+.addMargin {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.marginActionBtns {
+  margin-top: 3px;
+}
+
+.paddingTopBottom {
+  padding-top: 5px;
+  padding-bottom: 2px;
 }
 
 .boxShadow {
-  box-shadow: 10px 10px 5px #888888;
+  box-shadow: 10px 10px 5px #262626;
   background-color: #f5f5f0;
   border-radius: 5px;
 }
@@ -34,42 +66,47 @@ body {
 .addFav {
   background:url(/images/icons/fav.PNG) no-repeat;
   cursor:pointer;
-  width: 48px;
-  height: 48px;
+  width: 30px;
+  height: 30px;
   border: none;
 }
 .faved {
   background:url(/images/icons/faved.PNG) no-repeat;
   cursor:pointer;
-  width: 48px;
-  height: 48px;
+  width: 30px;
+  height: 30px;
   border: none;
 }
-
-
-
+.openInNewWindow {
+  background:url(/images/icons/newWindow.PNG) no-repeat;
+  cursor:pointer;
+  width: 30px;
+  height: 30px;
+  border: none;
+  padding: 3px;
+}
 
 .deleteIcon {
   background:url(/images/icons/delete.PNG) no-repeat;
   cursor:pointer;
-  width: 48px;
-  height: 48px;
+  width: 30px;
+  height: 30px;
   border: none;
 }
 
 .removeFav {
   background:url(/images/icons/unfav.PNG) no-repeat;
   cursor:pointer;
-  width: 48px;
-  height: 48px;
+  width: 30px;
+  height: 30px;
   border: none;
 }
+.qwe {
+  background: orange;
+}
 
-.row {
-  position:relative;
-  padding-bottom: 150px;
-  margin:auto;
-  display:block;
+.ass {
+  background: green;
 }
 
 .toBottom {
@@ -142,10 +179,10 @@ div.grid{
   margin-top: 28px;
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
+/* Responsive: Portrait tablets and up 768px 730px || 1200px 970px*/
+@media screen and (min-width: 1200px) {
   .container {
-    max-width: 730px;
+    max-width: 970px;
   }
 
   /* Remove the padding we set earlier */

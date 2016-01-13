@@ -1,1 +1,112 @@
- <video-gallery> </video-gallery>
+<!-- Options panel -->
+<div id="optionsPanel" class="panel-group col-md-2 ">
+  <div class="boxShadow addMargin panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#optionsPanel" data-target="#collapse1">Options</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <label>Filter:</label> <select ng-model="main.orderList" >
+            <option value="like">like</option>
+            <option value="view">view</option>
+            <option value="comment">comment</option>
+            <option value="-addTime">newest</option>
+            <option value="addTime">oldest</option>
+          </select>
+        </li>
+        <li class="list-group-item">
+          <div>Favorites <input type="checkbox" ng-model="main.showFav" value="myFavorite" ></div>
+        </li>
+        <li class="list-group-item"><div ng-click="main.changeView('list')">List</div></li>
+        <li class="list-group-item"><div ng-click="main.changeView('grid')">Grid</div></li>
+        <li class="list-group-item"><div ng-click="main.loadExampleDB()">Load example video DB</div></li>
+        <li class="list-group-item"><div ng-click="main.removeAll()">Remove all movies</div></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- /Options panel -->
+
+<!-- Main display grid -->
+<div class="col-md-10 col-xs-12">
+
+  <!-- Movie input -->
+  <div class="col-md-12 boxShadow addMargin">
+    <label>Movie:</label>
+    <input ng-model="main.newMovie"></input>
+    <button class="btn btn-default btn-s" ng-click="main.processMovie()">Add</button>
+  </div>
+  <!-- /Movie input -->
+
+  <!-- Movie display -->
+  <div ng-controller="paginationCtrl as pagi">
+
+    <!-- movie List, style List -->
+    <div ng-show="main.layout == 'list'" class="row col-md-12 col-xs-12 center-block boxShadow movieSpace" ng-repeat="info in main.movieList | startFrom:pagi.currentPage*pagi.pageSize | limitTo:pagi.pageSize | orderBy: main.orderList | filter: (!!main.showFav || undefined) && main.showFav track by $index ">
+
+      <div class="col-md-1">
+        <button ng-click="main.favoriteProc (info.movieID, 'add' )" class="marginActionBtns btn btn-default glyphicon glyphicon-thumbs-up"></button>
+        <button ng-click="main.favoriteProc (info.movieID, 'remove')" class="marginActionBtns btn btn-default glyphicon glyphicon-thumbs-down"></button>
+        <video-frame-window style="marginActionBtns btn btn-default btn-s glyphicon glyphicon-fullscreen" url="info.url"></video-frame-window>
+        <button class="marginActionBtns btn btn-default glyphicon glyphicon-heart" ng-show = "info.myFavorite"></button>
+        <button ng-click="main.removeVideo (info.movieID, $index)" class="marginActionBtns btn btn-default glyphicon glyphicon-remove"></button>
+      </div>
+      <video-frame style="iframeShadow col-md-11  col-xs-12" url="info.url"></video-frame>
+      <div class="pull-right col-md-11 col-xs-12 paddingTopBottom">
+        <div class="glyphicon glyphicon-heart-empty col-md-4 col-xs-12">
+          {{info.like}}
+        </div>
+        <div class="glyphicon glyphicon-eye-open col-md-4 col-xs-12">
+          {{info.view}}
+        </div>
+        <div class="glyphicon glyphicon-comment col-md-4 col-xs-12">
+          {{info.comment}}
+        </div>
+        <div class="glyphicon glyphicon-time col-md-8 col-xs-12">
+          {{info.addTime}}
+        </div>
+      </div>
+    </div>
+    <!-- /movie List, style List -->
+
+    <!-- movie List, style grid -->
+    <div ng-show="main.layout == 'grid'" class="row col-md-5 col-md-offset-1 col-xs-5 col-xs-offset-1 boxShadow movieSpace" ng-repeat="info in main.movieList | startFrom:pagi.currentPage*pagi.pageSize | limitTo:pagi.pageSize | orderBy: main.orderList | filter: (!!main.showFav || undefined) && main.showFav track by $index ">
+
+      <div class="pull-left col-md-12 col-xs-12">
+        <button ng-click="main.favoriteProc (info.movieID, 'add' )" class="btn btn-xs glyphicon glyphicon-thumbs-up"></button>
+        <button ng-click="main.favoriteProc (info.movieID, 'remove')" class="btn btn-xs glyphicon glyphicon-thumbs-down"></button>
+        <video-frame-window style="btn btn-xs btn-s glyphicon glyphicon-fullscreen" url="info.url"></video-frame-window>
+        <button class="btn btn-xs glyphicon glyphicon-heart" ng-show = "info.myFavorite"></button>
+        <button ng-click="main.removeVideo (info.movieID, $index)" class="btn btn-xs glyphicon glyphicon-remove"></button>
+      </div>
+      <video-frame style="iframeShadow col-md-12 col-xs-12" url="info.url"></video-frame>
+
+      <div class="col-md-12 col-xs-12 paddingTopBottom">
+        <div class="glyphicon glyphicon-heart-empty col-md-12 col-xs-12">
+          {{info.like}}
+        </div>
+        <div class="glyphicon glyphicon-eye-open col-md-12 col-xs-12">
+          {{info.view}}
+        </div>
+        <div class="glyphicon glyphicon-comment col-md-12 col-xs-12">
+          {{info.comment}}
+        </div>
+        <div class="glyphicon glyphicon-time col-md-12 col-xs-12">
+          {{info.addTime}}
+        </div>
+      </div>
+
+    </div>
+    <!-- /movie List, style grid -->
+
+    <!-- Pagination-->
+    <pagination bind-page="pagi.currentPage" bind-size="pagi.pageSize"> </pagination>
+    <!-- Pagination-->
+  </div>
+  <!-- Movie display -->
+
+</div>
+<!-- /Main display grid -->

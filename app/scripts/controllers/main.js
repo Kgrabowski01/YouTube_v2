@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('youTubeV2App')
-.controller('MainCtrl', function ($scope, $sce, movieProcService, localStorageService) {
+.controller('MainCtrl', function ($scope, $sce, movieCommon, youTubeProcessing, localStorageService) {
 
   var vm = this;
   vm.movieList = localStorageService.filesArray || [];
@@ -11,66 +11,42 @@ angular.module('youTubeV2App')
   vm.favoriteProc = favoriteProc;
   vm.removeAll = removeAll;
   vm.removeVideo = removeVideo;
-  vm.trustSrc = trustSrc;
   vm.changeView = changeView;
+  vm.loadExampleDB = loadExampleDB;
 
-  angular.forEach(vm.movieList, function (property) {
-    property.view = parseFloat(property.view);
-    property.comment = parseFloat(property.comment);
-    property.favorite = parseFloat(property.favorite);
-    property.like = parseFloat(property.like);
-  });
+  movieCommon.parseMovieTable(vm.movieList);
 
+  function loadExampleDB () {
+    var db = movieCommon.exampleVideoDataBase;
+    for (var i = 0; i < db.length; i++) {
+      vm.newMovie = db[i];
+      processMovie ();
+    }
+    vm.newMovie = '';
+  }
 
   function changeView (style) {
     vm.layout = style;
   }
 
   function processMovie () {
-    if (movieProcService.sourceVimeo(vm.newMovie)) {vimeoProc();}
-    ytProc();
-  }
-
-  function ytProc () {
-    var videoID;
-    var currentTime = movieProcService.getDate();
-    movieProcService.getYoutubeID (vm.newMovie)
-    .then(function (vidID) {
-      videoID = vidID;
-      return movieProcService.getMovieInfo (videoID);
-    })
-    .then(function (s) {
-      if (movieProcService.ifExist (videoID, vm.movieList) == false ) {
-        vm.movieList.push (new movieProcService.YoutubeMovie ( videoID, s[0].statistics.viewCount, s[0].statistics.likeCount, s[0].statistics.favoriteCount, s[0].statistics.dislikeCount, s[0].statistics.commentCount, currentTime ));
-        localStorageService.toDataUlrArray (vm.movieList);
-      }
-      vm.newMovie = "";
+    movieCommon.chceckSource(vm.newMovie)
+    .then(function(newMovieObj) {
+      vm.movieList.push(newMovieObj[0]);
+      localStorageService.toDataUlrArray (vm.movieList);
     });
-  }
-
-  function vimeoProc () {
-    var videoID;
-    var currentTime = movieProcService.getDate();
-    videoID = vm.newMovie;
-    movieProcService.getVimeoID(videoID)
-    .then(function (videoID) {
-      if (movieProcService.ifExist (videoID, vm.movieList) == false ) {
-        vm.movieList.push (new movieProcService.VimeoMovie (videoID, currentTime));
-        localStorageService.toDataUlrArray (vm.movieList);
-      }
-      vm.newMovie = "";
-    });
+    vm.newMovie = "";
   }
 
   function favoriteProc (movieID, flag)  {
     var favArray;
-    favArray = movieProcService.favoriteProc (vm.movieList, movieID, flag);
+    favArray = movieCommon.favoriteProc (vm.movieList, movieID, flag);
     localStorageService.toDataUlrArray (favArray);
   }
 
   function removeAll () {
-    var user_choice = window.confirm('Really delete all movies?');
-    if(user_choice==true) {
+    var userChoice = window.confirm('Really delete all movies?');
+    if(userChoice === true) {
       vm.movieList = [];
       localStorageService.toDataUlrArray (vm.movieList);
     }
@@ -79,12 +55,8 @@ angular.module('youTubeV2App')
 
   function removeVideo (movieID, index) {
     var removedVideoArray;
-    removedVideoArray =  movieProcService.removeVideo (vm.movieList, movieID, index);
+    removedVideoArray =  movieCommon.removeVideo (vm.movieList, movieID, index);
     localStorageService.toDataUlrArray (removedVideoArray);
-  }
-
-  function trustSrc (src) { // Tu jest problem
-    return $sce.trustAsResourceUrl(src);
   }
 
 });

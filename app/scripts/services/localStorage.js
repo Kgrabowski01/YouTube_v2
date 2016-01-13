@@ -28,7 +28,8 @@
 
     return {
       toDataUlrArray: toDataUlrArray,
-      filesArray: filesArray
+      filesArray: filesArray,
+      filesArrayLength: filesArray.length
     };
 
   }
