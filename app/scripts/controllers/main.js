@@ -45,7 +45,7 @@ angular.module('youTubeV2App')
   }
 
   function removeAll () {
-    var userChoice = window.confirm('Really delete all movies?');
+    var userChoice = window.confirm('Really delete all?');
     if(userChoice === true) {
       vm.movieList = [];
       localStorageService.toDataUlrArray (vm.movieList);
@@ -58,5 +58,4 @@ angular.module('youTubeV2App')
     removedVideoArray =  movieCommon.removeVideo (vm.movieList, movieID, index);
     localStorageService.toDataUlrArray (removedVideoArray);
   }
-
 });
