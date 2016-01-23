@@ -5,8 +5,6 @@
     return {
       restrict: 'E',
       templateUrl: 'views/video_gallery.html',
-      link: function() {
-      }
     };
   });
 

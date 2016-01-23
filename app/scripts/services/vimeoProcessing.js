@@ -18,6 +18,14 @@
       vm.myFavorite = myFavorite || false;
     };
 
+    function isValid (data) {
+      var source = data;
+      var sourceJson = JSON.stringify(source);
+      var pattern = new RegExp("vimeo");
+      var result = pattern.test(sourceJson);
+      if (result == true) { return true }
+    }
+
     function processMovie (data) {
       var def = $q.defer();
       var movieID;
@@ -52,6 +60,7 @@
     }
 
     return {
+      isValid: isValid,
       processMovie: processMovie,
     };
 

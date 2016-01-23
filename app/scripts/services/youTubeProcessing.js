@@ -14,9 +14,17 @@
       vm.view = viewCount;
       vm.like = likeCount;
       vm.comment = commentCount;
-      vm.url = "https://www.youtube.com/embed/" + movieId + "?rel=0&amp;showinfo=0";
+      vm.url = "https://www.youtube.com/v/" + movieId + "?rel=0&amp;showinfo=0"; // embed zamiast v powoduje brak errorow z chrome extension. V powoduje problemy przy skalowaniu
       vm.myFavorite = myFavorite || false;
     };
+
+    function isValid (data) {
+      var source = data;
+      var sourceJson = JSON.stringify(source);
+      var pattern = new RegExp("youtu");
+      var result = pattern.test(sourceJson);
+      if (result == true || data.length == 11) { return true; }
+    }
 
     function processMovie (data) {
       var def = $q.defer();
@@ -52,8 +60,14 @@
       return def.promise;
     }
 
+    function bb (a) {
+      console.log(a);
+    }
+
     return {
-      processMovie: processMovie,
+      bb:bb,
+      isValid: isValid,
+      processMovie: processMovie
     };
 
   }

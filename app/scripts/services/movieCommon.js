@@ -17,18 +17,26 @@
       vm.myFavorite = myFavorite || false;
     };
 
-    function chceckSource (toCheck) { // ta funkcja mi sie nie podoba, chcialem zrobic cos w stylu automatycznego wyboru odpowiednich serwisow
+    var supportedServices = [youTubeProcessing, vimeoProcessing];
+
+    function processFile (toCheck) {
+      var def = $q.defer();
+      for (var i = 0; i < supportedServices.length; i++) {
+        if (supportedServices[i].isValid(toCheck) == true) {
+          processVideo(i, toCheck)
+          .then(function (movie) {
+            def.resolve (movie);
+          });
+          return def.promise;
+        }
+      }
+    }
+
+    function processVideo (index, toCheck) {
       var def = $q.defer();
       var tempDate = getDate();
       var tempMovieArray = [];
-      // var c = patternCheck(toCheck);
-      // c.processMovie(toCheck)
-      var source = toCheck;
-      var sourceJson = JSON.stringify(source);
-      var pattern = new RegExp("vimeo");
-      var result = pattern.test(sourceJson);
-      if (result == true) {
-        vimeoProcessing.processMovie(toCheck)
+      supportedServices[index].processMovie(toCheck)
         .then(function(property) {
           if (ifExist (property.movieID, localStorageService.filesArray) == false) {
             tempMovieArray.push(new NewMovie (property.movieID, property.view, property.like, property.comment, tempDate, property.url, property.myFavorite));
@@ -37,26 +45,6 @@
         });
         return def.promise;
       }
-      youTubeProcessing.processMovie(toCheck)
-      .then(function(property) {
-        if (ifExist (property.movieID, localStorageService.filesArray) == false) {
-          tempMovieArray.push(new NewMovie (property.movieID, property.view, property.like, property.comment, tempDate, property.url, property.myFavorite));
-          def.resolve (tempMovieArray);
-        }
-      });
-      return def.promise;
-    }
-
-    // function patternCheck (toCheck) {
-    //   var source = toCheck;
-    //   var patternVimeo = 'vimeoProcessing';
-    //   var patternYT = 'youTubeProcessing';
-    //   var sourceJson = JSON.stringify(source);
-    //   var pattern = new RegExp("vimeo");
-    //   var result = pattern.test(sourceJson);
-    //   if (result == true) { return patternVimeo; }
-    //   return patternYT;
-    // }
 
 
     function getDate () {
@@ -111,7 +99,7 @@
     var exampleVideoDataBase = [
       "https://www.youtube.com/watch?v=4JOAqRS_lms" , 'https://youtu.be/vJ3a_AuEW18', 'ZBCOMG2F2Zk',
       'https://www.youtube.com/watch?v=n5scparvQWE', 'https://www.youtube.com/watch?v=enpDdpCS37A',
-      'https://vimeo.com/138882294', 'https://vimeo.com/143831946', 'https://www.youtube.com/watch?v=hkrA5R-he0k',
+      'https://vimeo.com/143831946', 'https://www.youtube.com/watch?v=hkrA5R-he0k',
       'https://www.youtube.com/watch?v=oLSdl-CdOBo', 'https://www.youtube.com/watch?v=aQeIYVM3YBM',
       'https://www.youtube.com/watch?v=tyG6YMLEWus', 'https://www.youtube.com/watch?v=Y05wiQQbFLU',
       'https://www.youtube.com/watch?v=Xt2sbtvBuk8', 'https://www.youtube.com/watch?v=juOB-IbCwJc',
@@ -123,12 +111,12 @@
     ];
 
     return {
+      processFile: processFile,
       exampleVideoDataBase: exampleVideoDataBase,
       ifExist: ifExist,
       favoriteProc: favoriteProc,
       removeVideo: removeVideo,
       parseMovieTable: parseMovieTable,
-      chceckSource: chceckSource
     };
 
   }

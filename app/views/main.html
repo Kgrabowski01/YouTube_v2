@@ -1,3 +1,5 @@
+<!-- <button class="marginActionBtns btn btn-default glyphicon glyphicon-heart" ng-click="main.testMain.getInfo()"></button> -->
+<!-- Linijka powyzej jest do testowania wywolywania funkcji z prototypu. -->
 <!-- Options panel -->
 <div id="optionsPanel" class="panel-group col-md-2 ">
   <div class="boxShadow addMargin panel panel-default">
@@ -103,7 +105,7 @@
     <!-- /movie List, style grid -->
 
     <!-- Pagination-->
-    <pagination bind-page="pagi.currentPage" bind-size="pagi.pageSize"> </pagination>
+    <pagination bind-page="pagi.currentPage" bind-size="pagi.pageSize" bind-set-size="pagi.setPageSize" bind-page-numbers="pagi.numberOfPages" bind-movie-list="pagi.movieList"> </pagination>
     <!-- Pagination-->
   </div>
   <!-- Movie display -->

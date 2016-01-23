@@ -2,22 +2,23 @@
   'use strict';
   angular.module('youTubeV2App')
   .directive('videoFrameWindow', function () {
-    var template = '<button class="{{style}}" ng-click="ctrl.newFrameWindow(url)"></button>';
+    var template = '<button class="{{ctrl.style}}" ng-click="ctrl.newFrameWindow()"></button>';
+    var controller = function () {
+      var vm = this;
+      vm.newFrameWindow = newFrameWindow;
+      function newFrameWindow () {
+        var newFrame = window.open(vm.url, '_blank');
+      }
+    }
     return {
       restrict: 'EA',
-      controller: ["$scope", function (scope) {
-        var vm = this;
-        vm.newFrameWindow = newFrameWindow;
-        
-        function newFrameWindow (newIframe) {
-          var newFrame = window.open(newIframe, '_blank');
-        };
-      }],
+      controller: controller,
       controllerAs:'ctrl',
-      scope: {
+      bindToController: {
         url:'=',
         style:'@'
       },
+      scope: {},
       template: template,
     };
   });

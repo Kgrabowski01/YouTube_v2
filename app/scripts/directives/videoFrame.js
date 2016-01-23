@@ -1,22 +1,24 @@
 (function(){
   'use strict';
   angular.module('youTubeV2App')
-  .directive('videoFrame', function ($sce) {
-    var template = '<iframe class="{{style}}" src="{{vFrame.trusted(url)}}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+  .directive('videoFrame', function () {
+    var template = '<iframe class="{{vFrame.style}}" src="{{vFrame.trusted()}}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+    var controller = function ($sce) {
+      var vm = this;
+      vm.trusted = trusted;
+      function trusted () {
+        return $sce.trustAsResourceUrl(vm.url);
+      }
+    };
     return {
       restrict: 'EA',
-      controller: ["$scope","$sce", function (scope, $sce) {
-        var vm = this;
-        vm.trusted = trusted;
-        function trusted (url) {
-          return $sce.trustAsResourceUrl(url);
-        }
-      }],
+      controller: controller,
       controllerAs:'vFrame',
-      scope: {
+      bindToController: {
         url:'=',
         style:'@'
       },
+      scope: {},
       template: template,
     };
   });
