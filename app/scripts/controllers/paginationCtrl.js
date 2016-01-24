@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('youTubeV2App')
-.controller('paginationCtrl', function (moviesStorage, paginationService) {
+.controller('paginationCtrl', function (moviesStorage) {
 
   var vm = this;
   vm.movieList = moviesStorage.fileArray || 0;

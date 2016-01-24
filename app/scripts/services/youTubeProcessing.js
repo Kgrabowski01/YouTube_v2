@@ -60,12 +60,7 @@
       return def.promise;
     }
 
-    function bb (a) {
-      console.log(a);
-    }
-
     return {
-      bb:bb,
       isValid: isValid,
       processMovie: processMovie
     };

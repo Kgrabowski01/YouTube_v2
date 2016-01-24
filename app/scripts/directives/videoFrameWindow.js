@@ -9,7 +9,8 @@
       function newFrameWindow () {
         var newFrame = window.open(vm.url, '_blank');
       }
-    }
+    };
+    
     return {
       restrict: 'EA',
       controller: controller,

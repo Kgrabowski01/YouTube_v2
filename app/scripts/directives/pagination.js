@@ -5,7 +5,8 @@
   .directive('pagination', function (paginationService) {
 
     var controller = function () {
-    }
+    };
+
     return {
       controller:controller,
       controllerAs:'ctrl',

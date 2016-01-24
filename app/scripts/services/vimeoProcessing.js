@@ -23,7 +23,7 @@
       var sourceJson = JSON.stringify(source);
       var pattern = new RegExp("vimeo");
       var result = pattern.test(sourceJson);
-      if (result == true) { return true }
+      if (result == true) { return true; }
     }
 
     function processMovie (data) {
