@@ -2,7 +2,7 @@
   'use strict';
   angular.module('youTubeV2App')
 
-  .directive('pagination', function (paginationService) {
+  .directive('pagination', function () {
 
     var controller = function () {
     };

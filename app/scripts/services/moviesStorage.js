@@ -17,9 +17,14 @@
       localStorageService.toDataUlrArray (data);
     }
 
+    function getAllMovies() {
+      var movies = fileArray;
+      return movies;
+    }
+
 
     return {
-      fileArray: fileArray,
+      getAllMovies: getAllMovies,
       pushNewMovie: pushNewMovie,
       pushToStorage: pushToStorage
     };

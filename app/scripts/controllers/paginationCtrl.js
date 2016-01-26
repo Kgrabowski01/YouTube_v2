@@ -4,7 +4,7 @@ angular.module('youTubeV2App')
 .controller('paginationCtrl', function (moviesStorage) {
 
   var vm = this;
-  vm.movieList = moviesStorage.fileArray || 0;
+  vm.movieList = moviesStorage.getAllMovies() || 0;
   vm.setPageSize = setPageSize;
   vm.numberOfPages = numberOfPages ;
   vm.currentPage = 0;

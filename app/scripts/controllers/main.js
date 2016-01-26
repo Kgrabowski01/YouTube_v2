@@ -6,7 +6,7 @@ angular.module('youTubeV2App')
 
 
   var vm = this;
-  vm.movieList = moviesStorage.fileArray;
+  vm.movieList = moviesStorage.getAllMovies();
   vm.layout = 'list';
   vm.testMain = new MainCtrl();
   movieCommon.parseMovieTable(vm.movieList);
@@ -17,7 +17,7 @@ angular.module('youTubeV2App')
   vm.removeVideo = removeVideo;
   vm.changeView = changeView;
   vm.loadExampleDB = loadExampleDB;
-
+// qwe
   function MainCtrl() {
     var dd = this;
     dd.dupa = "dupa";
@@ -73,18 +73,16 @@ angular.module('youTubeV2App')
   function loadExampleDB () {
     var db = movieCommon.exampleVideoDataBase;
     for (var i = 0; i < db.length; i++) {
-      vm.newMovie = db[i];
-      processMovie ();
+      processMovie (db[i]);
     }
-    vm.newMovie = '';
   }
 
   function changeView (style) {
     vm.layout = style;
   }
 
-  function processMovie () {
-    movieCommon.processFile(vm.newMovie)
+  function processMovie (newInput) {
+    movieCommon.processFile(newInput)
     .then(function(newMovieObj) {
       moviesStorage.pushNewMovie(newMovieObj[0]);
     });
