@@ -1,111 +1,61 @@
 'use strict';
 
 angular.module('youTubeV2App')
-.controller('MainCtrl', function (movieCommon, moviesStorage, youTubeProcessing, localStorageService) {
+.controller('MainCtrl', MainCtrl);
+MainCtrl.$inject = ['movieCommon','moviesStorage'];
 
-
+function MainCtrl (movieCommon, moviesStorage) {
 
   var vm = this;
   vm.movieList = moviesStorage.getAllMovies();
   vm.layout = 'list';
-  vm.testMain = new MainCtrl();
+  vm.movieCommon = movieCommon;
+  vm.moviesStorage = moviesStorage;
+
   movieCommon.parseMovieTable(vm.movieList);
 
-  vm.processMovie = processMovie;
-  vm.favoriteProc = favoriteProc;
-  vm.removeAll = removeAll;
-  vm.removeVideo = removeVideo;
-  vm.changeView = changeView;
-  vm.loadExampleDB = loadExampleDB;
-// qwe
-  function MainCtrl() {
-    var dd = this;
-    dd.dupa = "dupa";
-    this.dupa2 = "dupa2";
-  }
+}
 
-  MainCtrl.prototype.getInfo = function () {
-    alert( dd.dupa + ' ' + vm.layout + ' ' + this.dupa2 + ' ' +' apple');
-  };
-
-  MainCtrl.prototype.processMovie = function processMovie () {
-    movieCommon.chceckSource(vm.newMovie)
+  MainCtrl.prototype.processMovie = function processMovie (newInput) {
+    var that = this;
+    that.movieCommon.processFile(newInput)
     .then(function(newMovieObj) {
-      vm.movieList.push(newMovieObj[0]);
-      localStorageService.toDataUlrArray (vm.movieList);
+      that.moviesStorage.pushNewMovie(newMovieObj[0]);
     });
-    vm.newMovie = "";
+    that.newMovie = "";
   };
 
   MainCtrl.prototype.loadExampleDB = function loadExampleDB () {
-    var db = movieCommon.exampleVideoDataBase;
+    var that = this;
+    var db = that.movieCommon.exampleVideoDataBase;
     for (var i = 0; i < db.length; i++) {
-      vm.newMovie = db[i];
-      processMovie ();
+      that.processMovie (db[i]);
     }
-    vm.newMovie = '';
   };
 
   MainCtrl.prototype.changeView = function changeView (style) {
-    vm.layout = style;
+    var that = this;
+    that.layout = style;
   };
 
   MainCtrl.prototype.favoriteProc = function favoriteProc (movieID, flag)  {
-    var favArray = movieCommon.favoriteProc (vm.movieList, movieID, flag);
-    localStorageService.toDataUlrArray (favArray);
+    var that = this;
+    var favArray = that.movieCommon.favoriteProc (that.movieList, movieID, flag);
+    that.moviesStorage.pushToStorage (favArray);
   };
 
   MainCtrl.prototype.removeAll = function removeAll () {
+    var that = this;
     var userChoice = window.confirm('Really delete all?');
     if(userChoice === true) {
-      vm.movieList = [];
-      localStorageService.toDataUlrArray (vm.movieList);
+      that.movieList = [];
+      that.moviesStorage.pushToStorage (that.movieList);
     }
     return false;
   };
 
   MainCtrl.prototype.removeVideo = function removeVideo (movieID, index) {
-    var removedVideoArray =  movieCommon.removeVideo (vm.movieList, movieID, index);
-    localStorageService.toDataUlrArray (removedVideoArray);
+    var that = this;
+    var removedVideoArray =  that.movieCommon.removeVideo (that.movieList, movieID, index);
+    that.moviesStorage.pushToStorage (removedVideoArray);
   };
-
-
-  function loadExampleDB () {
-    var db = movieCommon.exampleVideoDataBase;
-    for (var i = 0; i < db.length; i++) {
-      processMovie (db[i]);
-    }
-  }
-
-  function changeView (style) {
-    vm.layout = style;
-  }
-
-  function processMovie (newInput) {
-    movieCommon.processFile(newInput)
-    .then(function(newMovieObj) {
-      moviesStorage.pushNewMovie(newMovieObj[0]);
-    });
-    vm.newMovie = "";
-  }
-
-  function favoriteProc (movieID, flag)  {
-    var favArray = movieCommon.favoriteProc (vm.movieList, movieID, flag);
-    moviesStorage.pushToStorage (favArray);
-  }
-
-  function removeAll () {
-    var userChoice = window.confirm('Really delete all?');
-    if(userChoice === true) {
-      vm.movieList = [];
-      moviesStorage.pushToStorage (vm.movieList);
-    }
-    return false;
-  }
-
-  function removeVideo (movieID, index) {
-    var removedVideoArray =  movieCommon.removeVideo (vm.movieList, movieID, index);
-    moviesStorage.pushToStorage (removedVideoArray);
-  }
-
-});

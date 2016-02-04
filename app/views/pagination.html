@@ -2,7 +2,7 @@
   <div class="col-md-offset-5 col-md-4 col-xs-offset-4 col-xs-8">
     <button class="btn btn-default btn-sm glyphicon glyphicon-arrow-left" ng-disabled="ctrl.bindPage == 0" ng-click="ctrl.bindPage = ctrl.bindPage-1"></button>
     {{ctrl.bindPage+1}} / {{ctrl.bindPageNumbers()}}
-    <button class="btn btn-default btn-sm glyphicon glyphicon-arrow-right" ng-disabled="ctrl.bindPage >= ctrl.bindMovieList/ctrl.bindSize - 1" ng-click="ctrl.bindPage = ctrl.bindPage + 1"></button>
+    <button class="btn btn-default btn-sm glyphicon glyphicon-arrow-right" ng-disabled="ctrl.bindPage >= ctrl.bindMovieList.length/ctrl.bindSize - 1" ng-click="ctrl.bindPage = ctrl.bindPage + 1"></button>
   </div>
 </div>
 <div class="row">
