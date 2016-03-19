@@ -15,7 +15,6 @@
       vm.addTime = addTime;
       vm.url = url;
       vm.myFavorite = myFavorite || false;
-      vm.userComments = []
     };
 
     var supportedServices = [youTubeProcessing, vimeoProcessing];
@@ -25,32 +24,31 @@
       for (var i = 0; i < supportedServices.length; i++) {
         if (supportedServices[i].isValid(toCheck) == true) {
           processVideo(i, toCheck)
-          .then(function (movie) {
-            def.resolve (movie);
-          });
+          .then(movie => {
+            def.resolve (movie)
+          })
           return def.promise;
         }
       }
-    }
+    };
 
     function processVideo (index, toCheck) {
       var def = $q.defer();
       var tempDate = getDate();
       var tempMovieArray = [];
       supportedServices[index].processMovie(toCheck)
-        .then(function(property) {
-          if (ifExist (property.movieID, localStorageService.filesArray) == false) {
-            tempMovieArray.push(new NewMovie (property.movieID, property.view, property.like, property.comment, tempDate, property.url, property.myFavorite));
-            def.resolve (tempMovieArray);
-          }
-        });
-        return def.promise;
-      }
-
+      .then(property => {
+        if (ifExist (property.movieID, localStorageService.filesArray) == false) {
+          tempMovieArray.push(new NewMovie (property.movieID, property.view, property.like, property.comment, tempDate, property.url, property.myFavorite));
+          def.resolve (tempMovieArray);
+        }
+      });
+      return def.promise;
+    }
 
     function getDate () {
-      var newDate = new Date();
-      var filteredDate = $filter('date')( newDate, 'yyyy-MM-dd HH:mm:ss');
+      let newDate = new Date();
+      let filteredDate = $filter('date')( newDate, 'yyyy-MM-dd HH:mm:ss');
       return filteredDate;
     }
 
@@ -59,7 +57,7 @@
       var array = movieArray;
       if (length == 0) { return false; }
       if ( length > 0 ) {
-        for ( var i = 0; i < length; i++) {
+        for ( let i = 0; i < length; i++) {
           if (array[i].movieID == newFile) {
             alert ("File exist");
             return true;
@@ -79,7 +77,7 @@
       var length = movieArray.length;
       var array = movieArray;
       var id = id;
-      for ( var i = 0; i < length; i++) {
+      for ( let i = 0; i < length; i++) {
         if (array[i].movieID == id) {
           if (toDo == 'add') {array[i].myFavorite = true;}
           if (toDo == 'remove') {array[i].myFavorite = false;}

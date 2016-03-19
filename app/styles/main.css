@@ -15,7 +15,11 @@ body {
 li.list-group-item:hover {
   color:blue;
 }
+.commentBorder {
 
+  padding-top: 1px;
+  padding-bottom: 10px;
+}
 
 .movieSpace {
   padding: 10px;

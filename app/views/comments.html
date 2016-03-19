@@ -1,0 +1,92 @@
+<comments-directive parent-object="info" parent-index="$index" comment-function="main.addComment" new-comment-body="main.newCommentBody" new-comment-user="main.newCommentUser"> </comments-directive>
+<!-- komentarze -->
+<div id="commentPanel" class="col-md-offset-1 col-md-11 col-xs-offset-1 col-xs-11 ">
+  <div class="">
+    <div class="pull-right panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#commentPanel" data-target="#collapse{{ctrl.parentIndex + 1}}">Comments</a>
+      </h4>
+    </div>
+    <div id="collapse{{ctrl.parentIndex + 1}}" class="col-md-12 panel-collapse collapse">
+
+      <form class="">
+
+        <div class="col-md-4 col-xs-12">
+          <label>Nick:</label>
+          <textarea ng-model="ctrl.newCommentUser" class="form-control" name="myTextBox" cols="10" rows="1" required>
+          </textarea>
+        </div>
+
+        <div class="commentBorder col-md-11 col-xs-12">
+          <label>Comment:</label>
+          <textarea ng-model="ctrl.newCommentBody" class="form-control" name="myTextBox2" cols="50" rows="3" required>
+          </textarea>
+        </div>
+        <div class="col-md-11 col-xs-12">
+          <button type="submit" class="btn btn-default pull-right" ng-click="ctrl.commentFunction(ctrl.newCommentUser, ctrl.newCommentBody, ctrl.parentObject.movieID)">Add</button>
+        </div>
+
+      </form>
+
+      <div ng-repeat="com in ctrl.parentObject.userComments track by $index" class="col-md-12 col-xs-12 " >
+        <div class="glyphicon glyphicon-user col-md-8 col-xs-12">
+          {{com.user}}
+        </div>
+        <div class="commentBorder col-md-12 col-xs-12">
+          {{com.comment}}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+ <!--/komentarze -->
+
+
+<!-- komentarze
+<div id="commentPanel" class="col-md-offset-1 col-md-11 col-xs-offset-1 col-xs-11 ">
+  <div class="">
+    <div class="pull-right panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#commentPanel" data-target="#collapse{{$index + 1}}">Comments</a>
+      </h4>
+    </div>
+
+    <div id="collapse{{$index + 1}}" class="col-md-12 panel-collapse collapse">
+
+      <form class="">
+
+        <div class="col-md-4 col-xs-12">
+          <label>Nick:</label>
+          <textarea ng-model="ctrl.newCommentUser" class="form-control" name="myTextBox" cols="10" rows="1" required>
+          </textarea>
+        </div>
+
+        <div class="commentBorder col-md-11 col-xs-12">
+          <label>Comment:</label>
+          <textarea ng-model="main.newCommentBody" class="form-control" name="myTextBox2" cols="50" rows="3" required>
+          </textarea>
+        </div>
+        <div class="col-md-11 col-xs-12">
+          <button type="submit" class="btn btn-default pull-right" ng-click="main.addComment(main.newCommentUser, main.newCommentBody, info.movieID)">Add</button>
+        </div>
+
+      </form>
+
+      <div ng-repeat="com in info.userComments track by $index" class="col-md-12 col-xs-12 " >
+        <div class="glyphicon glyphicon-user col-md-8 col-xs-12">
+          {{com.user}}
+        </div>
+        <div class="commentBorder col-md-12 col-xs-12">
+          {{com.comment}}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+komentarze -->

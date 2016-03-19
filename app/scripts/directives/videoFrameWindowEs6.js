@@ -3,13 +3,13 @@
   angular.module('youTubeV2App')
   .directive('videoFrameWindow', function () {
     var template = '<button class="{{ctrl.style}}" ng-click="ctrl.newFrameWindow()"></button>';
-    var controller = function () {
+    var controller = () => {
       var vm = this;
-      vm.newFrameWindow = newFrameWindow;
-      function newFrameWindow () {
+      vm.newFrameWindow = () => {
         var newFrame = window.open(vm.url, '_blank');
       }
-    };
+    }
+
     return {
       restrict: 'EA',
       controller: controller,
